@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <title>Time to Final</title>
+        <style>
+            h1, h2 {
+                text-align: center;
+            }
+            h1 {
+                margin-top: 10em;
+            }
+            h2 {
+                margin-top: 1em;
+            }
+        </style>
+    </head>
+    <body>
+    <h1>TIME TO FINAL</h1>
+    <h2 id="date-fill"></h3>
+    <script>
+    //https://stackoverflow.com/a/8528531 but adjusted
+    function dhm(t){
+        var cd = 24 * 60 * 60 * 1000,
+        ch = 60 * 60 * 1000,
+        cm = 60 * 1000,
+        d = Math.floor(t / cd),
+        h = Math.floor( (t - d * cd) / ch),
+        m = Math.floor( (t - d * cd - h * ch) / cm),
+        s = Math.floor( (t - d * cd - h * ch - m * cm) / 1000),
+        pad = function(n){ return n < 10 ? '0' + n : n; };
+        if( m === 60 ){
+            h++;
+            m = 0;
+        }
+        if( h === 24 ){
+            d++;
+            h = 0;
+        }
+        return [d, pad(h), pad(m), pad(s)].join(':');
+    }
+    
+    function count(){
+        var millis = Date.UTC(2021, 7, 7, 13, 0, 0)-Date.now();
+        document.getElementById('date-fill').innerHTML = dhm(millis)
+        setTimeout(count, 1000);
+    }
+    window.onload = count;
+    </script>
+    </body>
+</html>
